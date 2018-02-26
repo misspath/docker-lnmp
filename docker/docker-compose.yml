@@ -1,0 +1,61 @@
+
+#
+# WARNING you can build with register http://your-id.m.daocloud.io
+#
+
+# database
+mysql:
+  image: mysql:latest
+  ports:
+    # Allow client to access 3306
+    - "4306:3306"
+  privileged: true
+  volumes:
+    # NOTE: your data will be stored in ./mysql
+    - ./mysql/data:/var/lib/mysql
+    # Configs
+    - ./mysql/my.cnf:/etc/mysql/my.cnf
+    # Logs
+    #- ./mysql/logs:/var/log/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=123456 # you mysql password
+
+# php-fpm
+fpm:
+  build: ./php
+  ports:
+    - "10000:9000"
+  volumes:
+    # For source code
+    - /home/CURRENT_USER/app:/web/app
+    # Your php.ini
+    - ./php/php.ini:/usr/local/etc/php/php.ini
+  # environment:
+    # Set your APP env variables here:
+    # - APP_KEY=
+    # - DB_HOST=
+    # - DB_DATABASE=
+    # - DB_USERNAME=
+    # - DB_PASSWORD=
+  links:
+    - mysql:mysql
+
+# web server
+nginx:
+  image: nginx:latest
+  ports:
+    - "1080:80"
+    - "1443:443"
+  volumes:
+    # For others file
+    - /home/CURRENT_USER/app:/web/app
+    # Configs
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    - ./nginx/conf.d:/etc/nginx/conf.d
+    # Logs
+    - ./nginx/logs:/var/log/nginx
+    # Certificates
+    #- ./nginx/cert/xxx.pem/:/etc/nginx/xxx.pem
+    #- ./nginx/cert/xxx.key/:/etc/nginx/xxx.key
+  links:
+    - fpm:fpm
