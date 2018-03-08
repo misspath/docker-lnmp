@@ -24,27 +24,27 @@
     
         * `library.sh` 包含一些帮助函数，如果不希望安装以下其他命令时也可以单独执行，将为你创建 `fpm`、`mysql` 和 `nginx` 三个容器的便捷入口命令，方便调试。
         
-            * `dk-container-fpm bash` 便捷进入 `fpm` 容器，`bash` 可替换成任意 `linux` 命令执行
-            * `dk-container-mysql bash` 便捷进入 `mysql` 容器，同上
-            * `dk-container-nginx bash` 便捷进入 `nginx` 容器，同上
+            * `de-container-fpm bash` 便捷进入 `fpm` 容器，`bash` 可替换成任意 `linux` 命令执行
+            * `de-container-mysql bash` 便捷进入 `mysql` 容器，同上
+            * `de-container-nginx bash` 便捷进入 `nginx` 容器，同上
         
         * `install-composer.sh` 生成命令：
         
-            * `dk-composer` 完全替代 `composer`。
+            * `de-composer` 完全替代 `composer`。
             
                 > 如若安装依赖有环境要求，可使用以下命令绕过要求  
-                > `dk-composer [install | require] [package name] --ignore-platform-reqs`
+                > `de-composer [install | require] [package name] --ignore-platform-reqs`
         
         * `install-front.sh` 生成前端相关命令：
             
-            * `dk-node` 完全替代 `nodejs`
-            * `dk-npm` 完全替代 `npm`
-            * `dk-cnpm` 完全替代 `cnpm` （国内淘宝团队镜像）
+            * `de-node` 完全替代 `nodejs`
+            * `de-npm` 完全替代 `npm`
+            * `de-cnpm` 完全替代 `cnpm` （国内淘宝团队镜像）
         
         * `install-mysql-client.sh` 数据库相关命令：
         
-            * `dk-mysql` 完全替代 `mysql`
-            * `dk-mysqldump` 完全替代 `mysqldump`
+            * `de-mysql` 完全替代 `mysql`
+            * `de-mysqldump` 完全替代 `mysqldump`
 
 * sudo docker-compose up --build
 

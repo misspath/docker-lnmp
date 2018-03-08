@@ -7,13 +7,13 @@ if [ `sudo docker images -a | grep 'front' | wc -l | awk '{print $1}'` == 0 ]; t
     cat $(cd `dirname $0`; pwd)/dockerfile/front | sudo docker build -t front -
 fi
 
-if [ `cat ${profile} | grep 'alias dk-front' | wc -l | awk '{print $1}'` == 0 ]; then
+if [ `cat ${profile} | grep 'alias de-front' | wc -l | awk '{print $1}'` == 0 ]; then
     color 35 'Build alias for `node`、`npm`、`cnpm`'
-    echo "alias dk-front='sudo docker run --rm -v \$(pwd):/app front'" >> ${profile}
-    echo "alias dk-node='dk-front node'" >> ${profile}
-    echo "alias dk-npm='dk-front npm'" >> ${profile}
-    echo "alias dk-cnpm='dk-front cnpm'" >> ${profile}
-    color 34 'You can use command\n\n    `dk-node` substitution `node`\n    `dk-(c)npm` substitution `(c)npm`'
+    echo "alias de-front='sudo docker run --rm -v \$(pwd):/app front'" >> ${profile}
+    echo "alias de-node='de-front node'" >> ${profile}
+    echo "alias de-npm='de-front npm'" >> ${profile}
+    echo "alias de-cnpm='de-front cnpm'" >> ${profile}
+    color 34 'You can use command\n\n    `de-node` substitution `node`\n    `de-(c)npm` substitution `(c)npm`'
 fi
 
 
