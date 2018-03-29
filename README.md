@@ -16,5 +16,5 @@
     * `de-composer create-project --prefer-dist yiisoft/yii2-app-advanced project`；
     * `de-bash project/init`；
     * 修改 `project/common/config/main-local.php` 中相关配置；
-    * `de-bash project/yiimigrate`
+    * `de-bash project/yii` 列表可用命令。
 * 配置相应的 `hosts` 即可访问，端口均为 `81`。
