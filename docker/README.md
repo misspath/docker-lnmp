@@ -28,6 +28,10 @@
             * `de-container-mysql bash` 便捷进入 `mysql` 容器，同上
             * `de-container-nginx bash` 便捷进入 `nginx` 容器，同上
         
+        * `install-bash.sh` 生成命令：
+        
+            * `de-bash` 替代 `bash`。
+        
         * `install-composer.sh` 生成命令：
         
             * `de-composer` 完全替代 `composer`。

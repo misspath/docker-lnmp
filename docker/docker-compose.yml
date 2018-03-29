@@ -28,6 +28,7 @@ de-fpm:
   volumes:
     # For source code
     - ../app:/web/app
+    - ../project:/web/project
     # Your php.ini
     - ./php/php.ini:/usr/local/etc/php/php.ini
   # environment:
@@ -49,6 +50,7 @@ de-nginx:
   volumes:
     # For others file
     - ../app:/web/app
+    - ../project:/web/project
     # Configs
     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     - ./nginx/conf.d:/etc/nginx/conf.d
