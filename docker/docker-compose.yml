@@ -22,7 +22,7 @@ de-mysql:
 
 # php-fpm
 de-fpm:
-  build: ./php
+  build: ./php/5.6/
   ports:
     - "9001:9000"
   volumes:
