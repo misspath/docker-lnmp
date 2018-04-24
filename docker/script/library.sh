@@ -25,15 +25,15 @@ if [ ! -f ${profile} ]; then
 fi
 
 if [ `cat ${profile} | grep 'alias de-container-fpm' | wc -l | awk '{print $1}'` == 0 ]; then
-    echo "alias de-container-fpm=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Image}}' | grep 'de-fpm' | awk '{print \$1}'\`\"" >> ${profile}
+    echo "alias de-container-fpm=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep 'de-fpm' | awk '{print \$1}'\`\"" >> ${profile}
 fi
 
 if [ `cat ${profile} | grep 'alias de-container-mysql' | wc -l | awk '{print $1}'` == 0 ]; then
-    echo "alias de-container-mysql=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Image}}' | grep 'de-mysql' | awk '{print \$1}'\`\"" >> ${profile}
+    echo "alias de-container-mysql=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep 'de-mysql' | awk '{print \$1}'\`\"" >> ${profile}
 fi
 
 if [ `cat ${profile} | grep 'alias de-container-nginx' | wc -l | awk '{print $1}'` == 0 ]; then
-    echo "alias de-container-nginx=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Image}}' | grep 'de-nginx' | awk '{print \$1}'\`\"" >> ${profile}
+    echo "alias de-container-nginx=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep 'de-nginx' | awk '{print \$1}'\`\"" >> ${profile}
 fi
 
 # -- eof --
