@@ -4,7 +4,7 @@
 #
 
 FROM php:5.6-fpm
-MAINTAINER leon <jiangxilee@gmail.com>
+MAINTAINER LNMP
 
 #
 # For writable
