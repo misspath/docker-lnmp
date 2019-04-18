@@ -3,8 +3,8 @@
 # See https://github.com/docker-library/php/blob/6677546d599d3980781b520f84d03ecaad291dd1/7.2/stretch/fpm/Dockerfile
 #
 
-FROM php:7.2-fpm
-MAINTAINER leon <jiangxilee@gmail.com>
+FROM php:7.3-fpm
+MAINTAINER LNMP
 
 #
 # For writable
@@ -18,6 +18,7 @@ RUN usermod -u 1000 www-data
 # Install software
 #
 RUN apt-get update && apt-get install -y \
+    python\
     libfreetype6 \
     libfreetype6-dev \
     libjpeg62-turbo \
@@ -29,7 +30,8 @@ RUN apt-get update && apt-get install -y \
     libpng-tools \
     libpng-dev \
     libpng16-16 \
-    zlib1g-dev
+    zlib1g-dev \
+    libzip-dev
 
 #
 # Install software ZLIB
@@ -96,9 +98,9 @@ RUN docker-php-ext-configure \
 #
 # Ext install by PECL
 #
-RUN pecl install redis-3.1.5 \
-    &&  pecl install xdebug-2.6.0alpha1 \
-    &&  pecl install mcrypt-1.0.1 \
+RUN pecl install redis-4.3.0 \
+    &&  pecl install xdebug-2.7.1 \
+    &&  pecl install mcrypt-1.0.2 \
     &&  docker-php-ext-enable redis xdebug mcrypt
 
 #

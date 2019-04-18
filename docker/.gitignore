@@ -1,5 +1,4 @@
 mysql/data/
 mysql/logs/
 nginx/logs/
-mysql/logs/
 .DS_Store

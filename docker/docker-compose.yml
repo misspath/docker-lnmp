@@ -1,14 +1,12 @@
-
 #
 # WARNING you can build with register http://your-id.m.daocloud.io
 #
 
-# database
-de-mysql:
+app-mysql:
   image: mysql:latest
   ports:
     # Allow client to access 3306
-    - "3307:3306"
+    - "3306:3306"
   privileged: true
   volumes:
     # NOTE: your data will be stored in ./mysql
@@ -16,37 +14,54 @@ de-mysql:
     # Configs
     - ./mysql/my.cnf:/etc/mysql/my.cnf
     # Logs
-    #- ./mysql/logs:/var/log/mysql
+    - ./mysql/logs:/var/log/mysql
+
   environment:
     - MYSQL_ROOT_PASSWORD=123456 # you mysql password
 
-# php-fpm
-de-fpm:
-  build: ./php/5.6/
+app-redis:
+  build: ./redis
+  privileged: true
   ports:
-    - "9001:9000"
+    - "6379:6379"
+  volumes:
+    - ./redis/data:/data
+
+app-fpm:
+  build: ./php/7.3
+  privileged: true
+  ports:
+    - "9000:9000"
   volumes:
     # For source code
     - ../app:/web/app
-    - ../project:/web/project
+    - ../free:/web/free
     # Your php.ini
     - ./php/php.ini:/usr/local/etc/php/php.ini
+    - ./php/fpm.conf:/usr/local/etc/php-fpm.d/www.conf
+    # Others
+    - /etc/localtime:/etc/localtime:ro
   # environment:
     # Set your APP env variables here:
+    - USER
     # - APP_KEY=
     # - DB_HOST=
     # - DB_DATABASE=
     # - DB_USERNAME=
     # - DB_PASSWORD=
-  links:
-    - de-mysql:mysql
+  extra_hosts:
+    - "host:${GODDESS2}"
 
-# web server
-de-nginx:
+  links:
+    - app-mysql:mysql
+    - app-redis:redis
+
+app-nginx:
   image: nginx:latest
+  privileged: true
   ports:
-    - "81:80"
-    - "444:443"
+    - "80:80"
+    - "443:443"
   volumes:
     # For others file
     - ../app:/web/app
@@ -57,7 +72,7 @@ de-nginx:
     # Logs
     - ./nginx/logs:/var/log/nginx
     # Certificates
-    #- ./nginx/cert/xxx.pem/:/etc/nginx/xxx.pem
-    #- ./nginx/cert/xxx.key/:/etc/nginx/xxx.key
+    #- ./nginx/cert/app.pem/:/etc/nginx/app.pem
+    #- ./nginx/cert/app.key/:/etc/nginx/app.key
   links:
-    - de-fpm:fpm
+    - app-fpm:fpm

@@ -7,10 +7,10 @@ if [ `sudo docker images -a | grep 'composer' | wc -l | awk '{print $1}'` == 0 ]
     sudo docker pull library/composer:latest
 fi
 
-if [ `cat ${profile} | grep 'alias de-composer' | wc -l | awk '{print $1}'` == 0 ]; then
+if [ `cat ${profile} | grep 'alias app-composer' | wc -l | awk '{print $1}'` == 0 ]; then
     color 35 'Build alias for `composer`'
-    echo "alias de-composer='sudo docker run --rm -v \$(pwd):/app library/composer'" >> ${profile}
-    color 34 'You can use command `de-composer` substitution `composer` now'
+    echo "alias app-composer='sudo docker run --privileged=true --rm -v \$(pwd):/app library/composer'" >> ${profile}
+    color 34 'You can use command `app-composer` substitution `composer` now'
 fi
 
 color 32 'Completed install.'

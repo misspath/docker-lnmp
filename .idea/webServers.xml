@@ -2,10 +2,10 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="0a2bafa5-49ef-41fc-adf5-f277ba18ad2b" name="docker" url="http://docker">
-        <fileTransfer host="ubuntu" port="22" rootFolder="/home/leon/docker" accessType="SFTP">
+      <webServer id="0867aa81-313a-4678-9552-b637ee48cd46" name="app" url="http://free.app">
+        <fileTransfer host="ubuntu" port="22" rootFolder="/home/leon/app" accessType="SFTP">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" />
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
           <option name="port" value="22" />
         </fileTransfer>

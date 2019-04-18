@@ -24,16 +24,31 @@ if [ ! -f ${profile} ]; then
     touch ${profile}
 fi
 
-if [ `cat ${profile} | grep 'alias de-container-fpm' | wc -l | awk '{print $1}'` == 0 ]; then
-    echo "alias de-container-fpm=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep 'de-fpm' | awk '{print \$1}'\`\"" >> ${profile}
+if [ `cat ${profile} | grep 'alias iload' | wc -l | awk '{print $1}'` == 0 ]; then
+    echo "alias iload=\"source ~/.bash_profile\"" >> ${profile}
+    echo "alias ivim=\"sudo vim ~/.bash_profile\"" >> ${profile}
 fi
 
-if [ `cat ${profile} | grep 'alias de-container-mysql' | wc -l | awk '{print $1}'` == 0 ]; then
-    echo "alias de-container-mysql=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep 'de-mysql' | awk '{print \$1}'\`\"" >> ${profile}
+if [ `cat ${profile} | grep 'export GODDESS' | wc -l | awk '{print $1}'` == 0 ]; then
+    echo "export GODDESS=\$(ip route|awk '/default/ { print \$3 }')" >> ${profile}
+    echo "export GODDESS2=\$(ifconfig | grep -E \"([0-9]{1,3}\.){3}[0-9]{1,3}\" | grep -v 127.0.0.1 | awk '{ print \$2 }' | cut -f2 -d: | head -n1)" >> ${profile}
 fi
 
-if [ `cat ${profile} | grep 'alias de-container-nginx' | wc -l | awk '{print $1}'` == 0 ]; then
-    echo "alias de-container-nginx=\"sudo docker exec -it \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep 'de-nginx' | awk '{print \$1}'\`\"" >> ${profile}
+
+if [ `cat ${profile} | grep 'alias app-container-fpm' | wc -l | awk '{print $1}'` == 0 ]; then
+    echo "alias app-container-fpm=\"sudo docker exec --privileged=true -i \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep '_app-fpm' | awk '{print \$1}'\`\"" >> ${profile}
+fi
+
+if [ `cat ${profile} | grep 'alias app-container-mysql' | wc -l | awk '{print $1}'` == 0 ]; then
+    echo "alias app-container-mysql=\"sudo docker exec --privileged=true -i \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep '_app-mysql' | awk '{print \$1}'\`\"" >> ${profile}
+fi
+
+if [ `cat ${profile} | grep 'alias app-container-redis' | wc -l | awk '{print $1}'` == 0 ]; then
+    echo "alias app-container-redis=\"sudo docker exec --privileged=true -i \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep '_app-redis' | awk '{print \$1}'\`\"" >> ${profile}
+fi
+
+if [ `cat ${profile} | grep 'alias app-container-nginx' | wc -l | awk '{print $1}'` == 0 ]; then
+    echo "alias app-container-nginx=\"sudo docker exec --privileged=true -i \`sudo docker ps -a --format='table {{.ID}}\t{{.Names}}' | grep '_app-nginx' | awk '{print \$1}'\`\"" >> ${profile}
 fi
 
 # -- eof --

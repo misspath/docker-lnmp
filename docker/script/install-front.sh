@@ -7,13 +7,13 @@ if [ `sudo docker images -a | grep 'front' | wc -l | awk '{print $1}'` == 0 ]; t
     cat $(cd `dirname $0`; pwd)/dockerfile/front | sudo docker build -t front -
 fi
 
-if [ `cat ${profile} | grep 'alias de-front' | wc -l | awk '{print $1}'` == 0 ]; then
+if [ `cat ${profile} | grep 'alias app-front' | wc -l | awk '{print $1}'` == 0 ]; then
     color 35 'Build alias for `node`、`npm`、`cnpm`'
-    echo "alias de-front='sudo docker run --rm -v \$(pwd):/app front'" >> ${profile}
-    echo "alias de-node='de-front node'" >> ${profile}
-    echo "alias de-npm='de-front npm'" >> ${profile}
-    echo "alias de-cnpm='de-front cnpm'" >> ${profile}
-    color 34 'You can use command\n\n    `de-node` substitution `node`\n    `de-(c)npm` substitution `(c)npm`'
+    echo "alias app-front='sudo docker run --privileged=true --rm -v \$(pwd):/app front'" >> ${profile}
+    echo "alias app-node='app-front node'" >> ${profile}
+    echo "alias app-npm='app-front npm'" >> ${profile}
+    echo "alias app-cnpm='app-front cnpm'" >> ${profile}
+    color 34 'You can use command\n\n    `app-node` substitution `node`\n    `app-(c)npm` substitution `(c)npm`'
 fi
 
 
