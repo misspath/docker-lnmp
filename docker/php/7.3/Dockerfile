@@ -7,6 +7,11 @@ FROM php:7.3-fpm
 MAINTAINER LNMP
 
 #
+# Copy source package
+#
+COPY src src-package
+
+#
 # For writable
 #
 RUN usermod -u 1000 www-data
@@ -51,7 +56,7 @@ RUN curl -fsSL 'http://www.zlib.net/zlib-1.2.11.tar.gz' -o zlib.tar.gz \
 #
 # EXT intl with dependent ICU
 #
-RUN curl -fsSL 'http://download.icu-project.org/files/icu4c/60.2/icu4c-60_2-src.tgz' -o icu.tgz \
+RUN if [ -f "src-package/icu.tgz" ]; then cp src-package/icu.tgz .; else curl -fsSL 'http://download.icu-project.org/files/icu4c/60.2/icu4c-60_2-src.tgz' -o icu.tgz; fi \
     && mkdir -p /tmp/icu \
     && tar -xf icu.tgz -C /tmp/icu --strip-components=1 \
     && rm -f icu.tgz \
@@ -67,7 +72,7 @@ RUN curl -fsSL 'http://download.icu-project.org/files/icu4c/60.2/icu4c-60_2-src.
 #
 # EXT imagick with dependent ImageMagick
 #
-RUN curl -fsSL 'https://www.imagemagick.org/download/ImageMagick.tar.gz' -o imagemagick.tar.gz \
+RUN if [ -f "src-package/imagemagick.tar.gz" ]; then cp src-package/imagemagick.tar.gz .; else curl -fsSL 'https://www.imagemagick.org/download/ImageMagick.tar.gz' -o imagemagick.tar.gz; fi \
     && mkdir -p /tmp/imagemagick \
     && tar -xf imagemagick.tar.gz -C /tmp/imagemagick --strip-components=1 \
     && rm -f imagemagick.tar.gz \
